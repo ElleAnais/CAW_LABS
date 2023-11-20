@@ -1,0 +1,99 @@
+**Exercice 2 :**
+
+### Étape 1 : Créer le fichier `notation.js`
+
+1. Ouvrez votre éditeur de texte ou Visual Studio Code.
+2. Créez un nouveau fichier appelé `notation.js`.
+3. Ajoutez le code suivant dans le fichier :
+
+```javascript
+// notation.js
+
+// Définir la fonction mean
+const mean = function (scores) {
+  if (scores.length === 0) {
+    return 0; // Si le tableau est vide, la moyenne est 0.
+  }
+
+  const total = scores.reduce((acc, score) => acc + score, 0);
+  const average = total / scores.length;
+  return average;
+};
+
+// Exporter la fonction mean pour qu'elle puisse être utilisée dans d'autres fichiers
+module.exports = mean;
+```
+
+### Étape 2 : Enregistrer le fichier `notation.js`
+
+Enregistrez le fichier `notation.js`.
+
+### Étape 3 : Exécuter le fichier à l'aide de Node
+
+1. Ouvrez l'invite de commande ou le terminal.
+2. Naviguez jusqu'au répertoire où se trouve votre fichier `notation.js`.
+3. Exécutez le fichier avec la commande Node :
+
+```bash
+node notation.js
+```
+
+Vous pouvez tester la fonction `mean` en passant différents tableaux de scores.
+
+### Étape 4 : Créer le fichier `fileImport.js`
+
+1. Créez un nouveau fichier appelé `fileImport.js`.
+2. Ajoutez le code suivant pour importer le fichier `notation.js` et utiliser la fonction `mean` :
+
+```javascript
+// fileImport.js
+
+// Importer la fonction mean depuis notation.js
+const meanFunction = require('./notation');
+
+// Exemple d'utilisation
+const scores1 = [85, 90, 92, 88, 78];
+const scores2 = [75, 80, 85, 90, 95];
+
+console.log('Moyenne des scores 1 :', meanFunction(scores1));
+console.log('Moyenne des scores 2 :', meanFunction(scores2));
+```
+
+### Étape 5 : Enregistrer et exécuter le fichier `fileImport.js`
+
+1. Enregistrez le fichier `fileImport.js`.
+2. Exécutez le fichier avec la commande Node :
+
+```bash
+node fileImport.js
+```
+
+### Explication du code :
+
+- Dans le fichier `notation.js`, la fonction `mean` prend un tableau de scores en argument et calcule la moyenne en additionnant tous les scores et en les divisant par le nombre total de scores.
+
+- La fonction `mean` est exportée afin qu'elle puisse être utilisée dans d'autres fichiers à l'aide de `module.exports`.
+
+- Dans le fichier `fileImport.js`, la fonction `mean` est importée depuis `notation.js` à l'aide de `require`.
+
+- Deux tableaux de scores différents sont créés, et la fonction `mean` est utilisée pour calculer la moyenne de chaque tableau.
+
+- En exécutant le fichier `fileImport.js`, vous devriez voir les moyennes calculées affichées dans la console.
+
+C'est tout ! Vous avez maintenant créé, exécuté et utilisé des fonctions à partir de fichiers différents.
+
+
+
+
+
+
+
+cmd:
+
+C:\Users\User>cd C:\Users\User\Desktop\caw cours et tp node js et npm\tp3 exo2 caw
+
+C:\Users\User\Desktop\caw cours et tp node js et npm\tp3 exo2 caw>node notation.js
+
+C:\Users\User\Desktop\caw cours et tp node js et npm\tp3 exo2 caw>node fileImport.js
+Moyenne des scores 1 : 86.6
+Moyenne des scores 2 : 85

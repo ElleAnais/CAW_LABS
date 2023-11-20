@@ -1,0 +1,50 @@
+exo4 tp3 caw:
+
+
+Bien sûr, je vais vous guider étape par étape pour chaque version du script.
+
+### Étape 1 : Créer un fichier avec le texte passé en paramètre
+
+1. **Ouvrir votre éditeur de texte (VSCode, Sublime Text, etc.) :**
+   - Créez un nouveau fichier et copiez le code suivant :
+
+   ```javascript
+   // exo4.js
+
+   const fs = require('fs');
+
+   // Vérifier si le texte à ajouter est passé en tant qu'argument
+   if (process.argv.length < 3) {
+     console.error('Usage: node exo4.js "text to be added"');
+     process.exit(1); // Arrêter le script avec un code d'erreur
+   }
+
+   // Récupérer le texte à ajouter à partir des arguments de la ligne de commande
+   const textToAdd = process.argv[2];
+
+   // Créer un fichier avec le texte
+   fs.writeFile('f.txt', textToAdd, (err) => {
+     if (err) {
+       console.error(`Error creating file: ${err.message}`);
+       process.exit(1); // Arrêter le script avec un code d'erreur
+     }
+
+     console.log('The file has been saved!');
+   });
+   ```
+
+2. **Enregistrez le fichier :**
+   - Enregistrez ce fichier avec le nom `exo4.js` dans le répertoire de votre choix.
+
+3. **Ouvrir le terminal :**
+   - Ouvrez le terminal dans le répertoire où vous avez enregistré le fichier `exo4.js`.
+
+
+
+
+
+4. **Ouvrir le terminal :**
+   - Ouvrez le terminal dans le répertoire où vous avez enregistré le fichier `exo4.js`.
+
+5. **Exécuter le script avec un nom de fichier personnalisé :**
+   - Utilisez la commande suivante pour exécuter le script en spécifiant un nom de

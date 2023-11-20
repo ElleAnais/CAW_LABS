@@ -1,0 +1,144 @@
+Exercice 3 :....................................................................................................................
+
+1.Écrivez un composant pour afficher un formulaire d'authentification (Nom d'utilisateur, Mot de passe).
+2.Utilisez le formulaire pour afficher une liste d'utilisateurs chaque fois que le formulaire est soumis (via le bouton "Submit").
+3.Ajoutez un bouton Supprimer à chaque élément de la liste pour le supprimer.
+.................................................................................................................................
+
+
+1. Composant du formulaire d'authentification (AuthForm.js) :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+import React, { useState } from 'react';
+
+const AuthForm = ({ onSubmit }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit({ username, password });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nom d'utilisateur:
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </label>
+      <label>
+        Mot de passe:
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      <button type="submit">Soumettre</button>
+    </form>
+  );
+};
+
+export default AuthForm;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Explications :
+
+Le composant utilise le Hook useState pour gérer l'état des champs du formulaire (username et password).
+handleSubmit est une fonction appelée lorsque le formulaire est soumis. Elle prévient le comportement par défaut de la soumission du formulaire (e.preventDefault()) et appelle la fonction onSubmit passée en tant que prop avec les données du formulaire.
+Les champs d'entrée (username et password) sont contrôlés par l'état, ce qui signifie que leur valeur est liée à l'état et mise à jour à chaque changement de saisie de l'utilisateur.
+
+
+
+
+
+2. Utilisation du formulaire pour afficher la liste d'utilisateurs (UserList.js) :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+import React, { useState } from 'react';
+import AuthForm from './AuthForm';
+
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+
+  const handleFormSubmit = (userData) => {
+    // Ajoute le nouvel utilisateur à la liste
+    setUsers([...users, userData]);
+  };
+
+  const handleDelete = (index) => {
+    // Supprime l'utilisateur de la liste en utilisant son index
+    const newUsers = [...users];
+    newUsers.splice(index, 1);
+    setUsers(newUsers);
+  };
+
+  return (
+    <div>
+      <AuthForm onSubmit={handleFormSubmit} />
+
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>
+            {`Nom d'utilisateur: ${user.username}, Mot de passe: ${user.password}`}
+            <button onClick={() => handleDelete(index)}>Supprimer</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UserList;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Explications :
+
+UserList utilise le composant AuthForm pour afficher le formulaire d'authentification.
+Lorsque le formulaire est soumis, la fonction handleFormSubmit est appelée, ajoutant le nouvel utilisateur à la liste.
+La liste d'utilisateurs est affichée sous forme de <ul>, avec un bouton "Supprimer" à côté de chaque élément.
+Lorsque le bouton "Supprimer" est cliqué, la fonction handleDelete est appelée pour supprimer l'utilisateur correspondant de la liste.
+
+
+
+3. Composant principal (App.js) :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+import React from 'react';
+import UserList from './UserList';
+
+const App = () => {
+  return (
+    <div>
+      <h2>Formulaire d'authentification et liste d'utilisateurs</h2>
+      <UserList />
+    </div>
+  );
+};
+
+export default App;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Explications :
+
+App est le composant principal qui rend le composant UserList.
+L'application affiche un titre et le composant UserList qui contient le formulaire d'authentification et la liste d'utilisateurs.
+En utilisant ces composants, vous pouvez créer une application React qui permet aux utilisateurs de s'authentifier et affiche une liste d'utilisateurs avec la possibilité de les supprimer.
+
+
+j'ai ajouté les fonctionnalités suivantes:
+
+Validation du Formulaire :
+J'ai ajouté une logique de validation dans le composant AuthForm pour s'assurer que le nom d'utilisateur et le mot de passe sont saisis avant de soumettre le formulaire.
+Si le nom d'utilisateur ou le mot de passe est manquant, un message d'erreur est affiché en rouge.
+
+
+Réinitialisation des Champs du Formulaire :
+Après la soumission réussie du formulaire dans le composant AuthForm, j'ai ajouté la réinitialisation des champs du formulaire (username et password).
+
+Passage de la Nouvelle Liste d'Utilisateurs au Composant Supérieur :
+Dans le composant UserList, j'ai ajouté la possibilité de passer la nouvelle liste d'utilisateurs au composant supérieur (onSubmit(newUsers)) après la suppression d'un utilisateur.
+Ces ajouts améliorent l'expérience utilisateur en fournissant une validation du formulaire, une réinitialisation des champs après la soumission et la possibilité de gérer la liste d'utilisateurs au niveau du composant supérieur.

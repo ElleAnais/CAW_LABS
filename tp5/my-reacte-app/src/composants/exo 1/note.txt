@@ -1,0 +1,418 @@
+Exercice 1 :.............................................................................................................
+
+1.Créer un composant qui affiche un bouton avec l'intitulé "Cliquez-moi" et affiche un paragraphe avec le texte "Cliqué" chaque fois que le bouton est cliqué.
+2.Convertir le bouton précédent en un bouton bascule (permet d'afficher le message "Cliqué" au premier clic, troisième, cinquième, etc., et "Non cliqué" au deuxième clic, quatrième, sixième, etc.)
+3.Créer un composant principal App contenant 3 boutons (Button1, Button2 et Button3) et affichant un paragraphe contenant le texte : "Le bouton n°i a été cliqué".
+4.Afficher un compteur (sous la forme d'un <h1>) initialisé à 0 et deux boutons : "Inc" et "Dec" qui incrémentent/décrémentent le contenu du compteur à chaque clic.
+...................................................................................................................................
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   1.code :  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+import React, { useState } from 'react';
+
+const ClickButton = () => {
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked(true);
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>Cliquez-moi</button>
+      {clicked && <p>Cliqué</p>}
+    </div>
+  );
+};
+
+export default ClickButton;
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  explication 1:   !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Ce composant, appelé ClickButton,
+ utilise le hook d'état : useState, pour suivre si le bouton a été cliqué (clicked).
+  Lorsque le bouton est cliqué, la fonction handleClick ,met à jour l'état pour indiquer que le bouton a été cliqué.
+   En fonction de cet état, le paragraphe affiche ou non le texte "Cliqué".
+
+
+
+'import React, { useState } from 'react'; :
+-Cette ligne importe les modules React et useState depuis la bibliothèque React.
+-useState est un hook qui permet de gérer l'état dans les composants fonctionnels.
+
+
+
+'const ClickButton = () => { :
+-On commence la définition du composant ClickButton. C'est une fonction composant.
+
+
+'const [clicked, setClicked] = useState(false); :
+-On utilise le hook useState pour créer une variable d'état clicked initialisée à false.
+-setClicked est une fonction qui permettra de mettre à jour la valeur de clicked.
+
+
+
+'const handleClick = () => { :
+-Définition de la fonction handleClick qui sera exécutée lorsqu'on clique sur le bouton.
+
+
+
+'setClicked(true); :
+-Lorsque le bouton est cliqué, cette ligne met à jour l'état clicked à true.
+
+
+'return ( :
+-Le début du rendu du composant.
+
+
+'<div> :
+-Un élément <div> englobant les éléments à rendre.
+
+
+'<button onClick={handleClick}>Cliquez-moi</button> :
+-Un bouton qui déclenchera la fonction handleClick lorsqu'il est cliqué.
+
+
+'{clicked && <p>Cliqué</p>} :
+-Une expression conditionnelle qui rend un paragraphe <p> avec le texte "Cliqué" seulement si la variable clicked est true.
+
+
+'</div>; :
+La fin du rendu du composant.
+
+
+'}; :
+La fin de la définition du composant.
+
+
+'export default ClickButton; :
+-Cette ligne exporte le composant ClickButton pour qu'il puisse être utilisé ailleurs dans l'application React.
+-Ce composant React utilise l'état (useState) pour suivre si le bouton a été cliqué, et le rendu conditionnel ({clicked && <p>Cliqué</p>}) assure que le paragraphe est affiché uniquement lorsque le bouton est effectivement cliqué.
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 2.code:  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+import React, { useState } from 'react';
+
+const ClickButton = () => {
+  const [clickCount, setClickCount] = useState(0);
+
+  const handleClick = () => {
+    setClickCount(clickCount + 1);
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>
+        {clickCount % 2 === 0 ? 'Cliqué' : 'Non cliqué'}
+      </button>
+    </div>
+  );
+};
+
+export default ClickButton;
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   explication 2: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+'import React, { useState } from 'react'; :
+-Cette ligne importe les modules React et useState depuis la bibliothèque React.
+-useState est un hook qui permet de gérer l'état dans les composants fonctionnels.
+
+
+'const ClickButton = () => { :
+-On commence la définition du composant ClickButton. C'est une fonction composant.
+
+
+'const [clickCount, setClickCount] = useState(0); :
+-On utilise le hook useState pour créer une variable d'état clickCount initialisée à 0.
+-setClickCount est une fonction qui permettra de mettre à jour la valeur de clickCount
+
+
+'const handleClick = () => { setClickCount(clickCount + 1); }; :
+-Définition de la fonction handleClick qui sera exécutée lorsqu'on clique sur le bouton.
+-Cette fonction incrémente la valeur de clickCount à chaque clic.
+
+
+
+'return ( :
+-Le début du rendu du composant
+
+
+'<div> :
+-Un élément <div> englobant les éléments à rendre
+
+
+'<button onClick={handleClick}> :
+-Un bouton qui déclenchera la fonction handleClick lorsqu'il est cliqué.
+
+
+'{clickCount % 2 === 0 ? 'Cliqué' : 'Non cliqué'} :
+-Une expression conditionnelle qui rend "Cliqué" si le nombre de clics (clickCount) est pair, et "Non cliqué" s'il est impair.
+-Cela permet d'alterner entre les deux messages en fonction du nombre de clics.
+
+
+
+'</div>; :
+-La fin du rendu du composant.
+
+
+'export default ClickButton; :
+-Cette ligne exporte le composant ClickButton pour qu'il puisse être utilisé ailleurs dans l'application React
+
+
+
+
+
+Ce composant React utilise un état (clickCount) pour suivre le nombre de clics, 
+et le rendu conditionnel ({clickCount % 2 === 0 ? 'Cliqué' : 'Non cliqué'}) 
+assure que le texte du bouton change entre "Cliqué" et "Non cliqué" à chaque clic,
+ répondant ainsi à la demande d'un bouton bascule.
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Code3: !!!!!!!!!!!!!!!!!!!!!!!!!!
+
+import React, { useState } from 'react';
+
+const App = () => {
+  const [clickedButton, setClickedButton] = useState(null);
+
+  const handleButtonClick = (buttonNumber) => {
+    setClickedButton(buttonNumber);
+  };
+
+  return (
+    <div>
+      <button onClick={() => handleButtonClick(1)}>Button1</button>
+      <button onClick={() => handleButtonClick(2)}>Button2</button>
+      <button onClick={() => handleButtonClick(3)}>Button3</button>
+
+      <p>{clickedButton ? `Le bouton n°${clickedButton} a été cliqué` : ''}</p>
+    </div>
+  );
+};
+
+export default App;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  EXPLICATION 3:  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Pour la troisième question, 
+où vous devez créer un composant principal App contenant 3 boutons 
+(Button1, Button2, et Button3) 
+et affichant un paragraphe contenant
+ le texte : "Le bouton n°i a été cliqué", 
+ vous pouvez utiliser la même approche que celle utilisée pour le premier extrait de code. 
+
+
+Dans ce code, chaque bouton 
+(Button1, Button2, Button3) est associé à
+ un numéro (1, 2, 3) et, lorsqu'il est cliqué,
+  le numéro correspondant est enregistré dans l'état clickedButton. 
+  Le paragraphe affiche ensuite le message indiquant quel bouton a été cliqué en fonction de la valeur de clickedButton
+
+
+
+
+
+'import React, { useState } from 'react'; :
+-Cette ligne importe les modules React et useState depuis la bibliothèque React.
+
+
+
+'const App = () => { :
+-On commence la définition du composant principal App.
+
+
+
+'const [clickedButton, setClickedButton] = useState(null); :
+-On utilise le hook useState pour créer une variable d'état clickedButton initialisée à null.
+_setClickedButton est une fonction qui permettra de mettre à jour la valeur de clickedButton.
+
+
+
+'const handleButtonClick = (buttonNumber) => { setClickedButton(buttonNumber); }; :
+-Définition de la fonction handleButtonClick qui sera exécutée lorsqu'on clique sur l'un des boutons.
+-Cette fonction met à jour la valeur de clickedButton avec le numéro du bouton qui a été cliqué.
+
+
+'<div> :
+-Début du rendu du composant.
+
+
+
+'<button onClick={() => handleButtonClick(1)}>Button1</button> :
+-Le premier bouton qui, lorsqu'il est cliqué, appelle handleButtonClick avec le numéro du bouton (1).
+
+
+'<button onClick={() => handleButtonClick(2)}>Button2</button> :
+-Le deuxième bouton de manière similaire, mais avec le numéro 2.
+
+
+
+'<button onClick={() => handleButtonClick(3)}>Button3</button> :
+-Le troisième bouton de manière similaire, mais avec le numéro 3.
+
+
+'<p>{clickedButton ? Le bouton n°${clickedButton} a été cliqué : ''}</p> :
+-une expression conditionnelle qui rend un paragraphe contenant le texte indiquant quel bouton a été cliqué, seulement si clickedButton est différent de null.
+
+
+'</div>; :
+Fin du rendu du composant.
+
+
+'}; :
+-Fin de la définition du composant principal App.
+
+
+'export default App; :
+-Cette ligne exporte le composant App pour qu'il puisse être utilisé ailleurs dans l'application React.
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CODE 4!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+1)Dans App  rajouter :
+
+Pour obtenir le deuxième code à partir du premier, voici ce qui a été ajouté ou modifié :
+
+
+
+1.Ajout de l'état du compteur (counter) et des fonctions pour gérer le compteur :
+
+const [counter, setCounter] = useState(0);
+
+const handleIncrement = () => {
+  setCounter(counter + 1);
+};
+
+const handleDecrement = () => {
+  setCounter(counter - 1);
+};
+
+
+
+2.Ajout des éléments pour afficher le compteur et les boutons "Inc" et "Dec" :
+
+
+
+<div>
+  <h1>Counter: {counter}</h1>
+  <button onClick={handleIncrement}>Inc</button>
+  <button onClick={handleDecrement}>Dec</button>
+</div>
+
+
+3.Encapsulation des éléments existants dans une nouvelle div pour organiser le rendu :
+
+
+<div>
+  <button onClick={() => handleButtonClick(1)}>Button1</button>
+  <button onClick={() => handleButtonClick(2)}>Button2</button>
+  <button onClick={() => handleButtonClick(3)}>Button3</button>
+
+  <p>{clickedButton ? `Le bouton n°${clickedButton} a été cliqué` : ''}</p>
+</div>
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! EXPLICATION 4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Pour la quatrième question de l'exercice,
+ où vous devez afficher un compteur (sous la forme d'un <h1>) 
+ initialisé à 0 
+ et deux boutons "Inc" et "Dec"
+  qui incrémentent/décrémentent le contenu du compteur à chaque clic, 
+ créer un nouveau composant appelé CounterApp.
+
+
+ 
+Donc, dans l'ensemble, 
+le deuxième code ajoute un nouveau bloc qui gère le compteur avec un titre <h1>
+ et deux boutons "Inc" et "Dec", tout en conservant le bloc existant pour les boutons
+  et le paragraphe qui suivent les clics des boutons.
+
+  .............................................................................................................
+
+  ce que j'ai rajouter :
+
+Ces modifications ajoutent des fonctionnalités telles que le suivi du nombre de clics, le changement de couleur du bouton à chaque clic, la réinitialisation du compteur, et un bouton de réinitialisation.
+  
+
+```jsx
+// ClickButton.js
+import React, { useState } from 'react';
+
+const ClickButton = ({ onClick }) => {
+  // État local pour suivre le nombre de clics
+  const [clickCount, setClickCount] = useState(0);
+  // État local pour la couleur du bouton
+  const [buttonColor, setButtonColor] = useState('lightblue');
+
+  // Fonction appelée lorsqu'on clique sur le bouton
+  const handleClick = () => {
+    // Incrémente le compteur de clics
+    setClickCount(clickCount + 1);
+    // Change la couleur du bouton à chaque clic
+    setButtonColor(clickCount % 2 === 0 ? 'lightblue' : 'lightgreen');
+    // Appelle la fonction fournie en prop (si elle existe)
+    onClick && onClick();
+  };
+
+  // Fonction pour réinitialiser le compteur de clics et la couleur du bouton
+  const handleReset = () => {
+    setClickCount(0);
+    setButtonColor('lightblue');
+  };
+
+  // Style dynamique du bouton en fonction de la couleur actuelle
+  const buttonStyle = {
+    backgroundColor: buttonColor,
+  };
+
+  return (
+    <div>
+      {/* Bouton avec gestion des clics et style dynamique */}
+      <button onClick={handleClick} style={buttonStyle}>
+        {clickCount % 2 === 0 ? 'Cliqué' : 'Non cliqué'}
+      </button>
+      {/* Affichage du nombre de clics */}
+      <p>Nombre de clics : {clickCount}</p>
+      {/* Bouton de réinitialisation */}
+      <button onClick={handleReset}>Réinitialiser</button>
+    </div>
+  );
+};
+
+export default ClickButton;
+```
+
+Explications des ajouts :
+
+1. **États Locaux :** J'ai ajouté deux états locaux, `clickCount` pour suivre le nombre de clics et `buttonColor` pour gérer la couleur du bouton.
+
+2. **Gestion des Clics :** J'ai modifié la fonction `handleClick` pour incrémenter le compteur de clics et changer la couleur du bouton à chaque clic.
+
+3. **Réinitialisation :** J'ai ajouté une fonction `handleReset` pour réinitialiser le compteur de clics et la couleur du bouton.
+
+4. **Style Dynamique :** J'ai introduit une variable `buttonStyle` qui définit le style du bouton en fonction de la couleur actuelle.
+
+5. **Bouton de Réinitialisation :** J'ai ajouté un bouton de réinitialisation qui appelle la fonction `handleReset` lorsqu'il est cliqué.

@@ -1,0 +1,87 @@
+exo1 tp3 caw :
+
+
+Bien sûr, voici une solution détaillée pour l'exercice :
+
+### Étapes pour créer et exécuter le fichier `echo.js` :
+
+**Étape 1 : Créer le fichier `echo.js`**
+
+Ouvrez votre éditeur de texte ou Visual Studio Code et créez un nouveau fichier appelé `echo.js`. Ajoutez le code suivant dans le fichier :
+
+```javascript
+// echo.js
+
+// Définir la fonction exf
+const exf = function (s, n) {
+  for (let i = 0; i < n; i++) {
+    console.log(s);
+  }
+};
+
+// Appels à la fonction exf
+exf("echo", 5);
+exf("JS côté serveur", 10);
+```
+
+**Étape 2 : Enregistrer le fichier `echo.js`**
+
+Enregistrez le fichier `echo.js`.
+
+**Étape 3 : Exécuter le fichier dans la console de commande Node**
+
+Ouvrez l'invite de commande ou le terminal, puis naviguez vers le répertoire où se trouve votre fichier `echo.js`.
+
+```bash
+cd chemin/vers/le/dossier/du/projet
+```
+
+Ensuite, exécutez le fichier `echo.js` avec la commande Node :
+
+```bash
+node echo.js
+```
+
+Vous devriez voir la sortie dans la console, avec les chaînes "echo" et "JS côté serveur" répétées respectivement 5 et 10 fois.
+
+C'est tout ! Vous avez maintenant créé et exécuté le fichier `echo.js` avec la fonction demandée. N'hésitez pas si vous avez des questions supplémentaires !
+
+
+
+
+
+explication :
+
+Bien sûr, explicitons le code dans le fichier echo.js:
+
+javascript
+
+Copier le code
+// echo.js
+
+// Définir la fonction exf
+const exf = function (s, n) {
+  for (let i = 0; i < n; i++) {
+    console.log(s);
+  }
+};
+
+// Appels à la fonction exf
+exf("echo", 5);
+exf("JS côté serveur", 10);
+Explications :
+
+Définition de la fonction exf:
+
+La fonction exfprend deux paramètres : s(une chaîne de caractères) et n(un entier).
+À l'intérieur de la fonction, il y a une boucle forqui est nfois.
+À chaque itération, la fonction utilise console.logpour afficher la chaîne sdans la console.
+Appels à la fonction exf:
+
+Après la définition de la fonction, il y a deux appels à la fonction exf.
+Le premier appel exf("echo", 5);affiche la chaîne "echo" cinq fois.
+Le deuxième appel exf("JS côté serveur", 10);affiche la chaîne "JS côté serveur" dix fois.
+Exécution du fichier :
+
+Vous exécutez le fichier echo.jsavec la commande node echo.jsdans la console, les appels à la fonction exfsont exécutés, et les chaînes sont affichées dans la console selon les spécifications de la fonction.
+En résumé, le code crée une fonction exfqui affiche une chaîne de caractères un certain nombre de fois, puis appelle cette fonction avec deux jeux d'arguments différents pour afficher différentes chaînes dans la console.

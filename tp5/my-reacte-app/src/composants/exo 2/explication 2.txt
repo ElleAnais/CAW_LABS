@@ -1,0 +1,174 @@
+Exercice 2 :.............................................................................................................................
+
+1.Étant donné un tableau de valeurs tab = ["hello", "world", "from", "react"], utilisez l'itérateur map pour écrire un composant DisplayTab qui affiche ce tableau sous la forme d'une liste non ordonnée <ul>.
+2.Réécrivez le composant précédent pour afficher :
+"Element 1 is: hello"
+"Element 2 is: world"
+"Element 3 is: from"
+etc.
+3.Même contenu que la question 2, en ajoutant l'événement de clic aux éléments. Lorsqu'un élément de la liste est cliqué, il est supprimé.
+4.Paramétrisez le composant DisplayTab en utilisant les props pour le tableau à afficher.
+5.Écrivez un composant App contenant deux composants DisplayTab qui affichent deux tableaux différents.
+
+..............................................................................................................................................
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Réponses aux questions :!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+1.Composant DisplayTab avec itérateur map :
+
+import React from 'react';
+
+const DisplayTab = () => {
+  const tab = ["hello", "world", "from", "react"];
+
+  return (
+    <ul>
+      {tab.map((element, index) => (
+        <li key={index}>{element}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default DisplayTab;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+2.Réécrire le composant pour afficher les éléments avec leur index : 
+
+
+import React from 'react';
+
+const DisplayTab = () => {
+  const tab = ["hello", "world", "from", "react"];
+
+  return (
+    <ul>
+      {tab.map((element, index) => (
+        <li key={index}>{`Element ${index + 1} is: ${element}`}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default DisplayTab;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+3.Ajouter l'événement de clic pour supprimer les éléments :
+
+
+import React, { useState } from 'react';
+
+const DisplayTab = () => {
+  const [tab, setTab] = useState(["hello", "world", "from", "react"]);
+
+  const handleRemove = (index) => {
+    const newTab = [...tab];
+    newTab.splice(index, 1);
+    setTab(newTab);
+  };
+
+  return (
+    <ul>
+      {tab.map((element, index) => (
+        <li key={index} onClick={() => handleRemove(index)}>
+          {`Element ${index + 1} is: ${element}`}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default DisplayTab;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+4.Paramétrer le composant DisplayTab avec les props :
+
+
+import React from 'react';
+
+const DisplayTab = ({ tab }) => {
+  return (
+    <ul>
+      {tab.map((element, index) => (
+        <li key={index}>{`Element ${index + 1} is: ${element}`}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default DisplayTab;
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+5.Composant App avec deux DisplayTab affichant deux tableaux différents :
+
+
+import React from 'react';
+import DisplayTab from './DisplayTab';
+
+const App = () => {
+  const firstTab = ["apple", "orange", "banana"];
+  const secondTab = ["car", "bus", "bike"];
+
+  return (
+    <div>
+      <DisplayTab tab={firstTab} />
+      <DisplayTab tab={secondTab} />
+    </div>
+  );
+};
+
+export default App;
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Explication détaillée du code ligne par ligne : !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+1.Composant DisplayTab avec itérateur map :
+
+const tab = ["hello", "world", "from", "react"];: Définition du tableau.
+{tab.map((element, index) => (<li key={index}>{element}</li>))}: Utilisation de map pour itérer sur le tableau et générer des éléments <li> pour chaque élément du tableau.
+
+
+
+2.Réécrire le composant pour afficher les éléments avec leur index :
+
+{Element ${index + 1} is: ${element}}: Utilisation de l'index pour afficher chaque élément avec son numéro.
+
+
+
+3.Ajouter l'événement de clic pour supprimer les éléments :
+
+const [tab, setTab] = useState(["hello", "world", "from", "react"]);: Utilisation de l'état pour suivre le tableau.
+<li key={index} onClick={() => handleRemove(index)}>: Ajout d'un gestionnaire de clic qui app
+
+...............................................................................................................
+
+J'ai ajouté plusieurs fonctionnalités au composant `DisplayTab`. Voici une explication détaillée des changements :
+
+1. **Ajout de la Possibilité d'Ajouter des Éléments :**
+   - J'ai introduit un nouvel état local `newElement` pour suivre la valeur de l'élément entré dans le champ de saisie.
+   - J'ai ajouté un champ de saisie (`<input>`) pour entrer de nouveaux éléments.
+   - J'ai créé une fonction `handleAdd` qui ajoute un nouvel élément à la liste si la valeur de `newElement` n'est pas vide.
+   - J'ai associé cette fonction au bouton "Add" qui apparaît à côté du champ de saisie.
+
+2. **Modification des Éléments Existants :**
+   - J'ai ajouté un état local `editIndex` pour suivre l'index de l'élément en cours d'édition.
+   - J'ai ajouté des boutons "Edit" à côté de chaque élément dans la liste, qui, lorsqu'ils sont cliqués, déclenchent la fonction `handleEdit` pour pré-remplir le champ de saisie avec la valeur de l'élément en cours d'édition.
+   - J'ai ajouté un bouton "Update" qui met à jour l'élément actuellement édité dans la liste.
+
+3. **Explications des Nouvelles Fonctions :**
+   - `handleAdd`: Cette fonction vérifie si la valeur de `newElement` n'est pas vide, puis ajoute cette valeur à la liste `displayedTab`. Ensuite, elle réinitialise le champ de saisie à une chaîne vide (`''`).
+   - `handleEdit`: Cette fonction prend l'index de l'élément comme argument et initialise les états `editIndex` et `newElement` avec la valeur de l'élément à cet index, pré-remplissant ainsi le champ de saisie.
+   - `handleUpdate`: Cette fonction vérifie si la valeur de `newElement` n'est pas vide, puis met à jour l'élément actuellement édité dans la liste `displayedTab`. Ensuite, elle réinitialise les états `editIndex` et `newElement`.
+
+Ces ajouts permettent d'étendre les fonctionnalités du composant `DisplayTab` en permettant l'ajout et la modification dynamiques des éléments de la liste. 

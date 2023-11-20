@@ -1,0 +1,83 @@
+Exercice 4 :..........................................................................................................................
+
+Écrivez un composant contenant un formulaire qui vous permet d'ajouter des éléments div à la page affichée. 
+Dans le formulaire, récupérez la hauteur et la largeur de la div ainsi que la couleur de fond.
+Lorsque vous cliquez sur le bouton de soumission, vous devriez voir l'affichage de la div avec le style spécifié.
+..............................................................................................................................
+
+ Bien sûr, je vais expliquer le code étape par étape :
+
+1. **Imports :**
+   ```jsx
+   import React, { useState } from 'react';
+   ```
+   Ces lignes importent les modules React et useState. `useState` est un hook de React qui permet d'ajouter un état local à un composant fonctionnel.
+
+2. **Composant DivForm :**
+   ```jsx
+   const DivForm = () => {
+   ```
+   On crée une fonction composant nommée `DivForm`.
+
+3. **États locaux :**
+   ```jsx
+   const [divList, setDivList] = useState([]);
+   const [divStyle, setDivStyle] = useState({
+     height: '100px',
+     width: '100px',
+     backgroundColor: 'lightblue',
+   });
+   ```
+   On utilise `useState` pour créer deux états locaux :
+   - `divList` : un tableau qui contiendra les divs ajoutées avec leurs styles.
+   - `divStyle` : un objet qui représente le style par défaut d'une nouvelle div.
+
+4. **Fonction handleFormSubmit :**
+   ```jsx
+   const handleFormSubmit = (e) => {
+     e.preventDefault();
+
+     const height = e.target.elements.height.value || '100px';
+     const width = e.target.elements.width.value || '100px';
+     const backgroundColor = e.target.elements.backgroundColor.value || 'lightblue';
+
+     setDivList((prevDivList) => [
+       ...prevDivList,
+       {
+         id: new Date().getTime(),
+         style: {
+           height,
+           width,
+           backgroundColor,
+         },
+       },
+     ]);
+
+     setDivStyle({
+       height: '100px',
+       width: '100px',
+       backgroundColor: 'lightblue',
+     });
+
+     e.target.reset();
+   };
+   ```
+   Cette fonction est appelée lorsque le formulaire est soumis. Elle récupère les valeurs du formulaire pour la hauteur, la largeur et la couleur de fond, ou utilise les valeurs par défaut si elles ne sont pas spécifiées. Ensuite, elle ajoute une nouvelle div avec le style spécifié à la liste `divList`. Enfin, elle réinitialise le style du formulaire et efface les champs du formulaire.
+
+5. **Rendu du formulaire et des divs :**
+   ```jsx
+   return (
+     <div>
+       <form onSubmit={handleFormSubmit}>
+         {/* ... */}
+       </form>
+
+       {divList.map((div) => (
+         <div key={div.id} style={div.style}></div>
+       ))}
+     </div>
+   );
+   ```
+   Dans la partie JSX, on rend le formulaire avec des champs pour la hauteur, la largeur et la couleur de fond. Les valeurs de ces champs sont liées à l'état `divStyle`. En dessous, on mappe la liste des divs dans `divList` pour les afficher à l'écran avec leurs styles spécifiés.
+
+Cela résume le fonctionnement de ce composant React qui permet d'ajouter des divs avec des styles personnalisés à la page. Vous pouvez saisir les valeurs dans le formulaire, cliquer sur le bouton "Add Div", et observer les divs ajoutées à l'écran.
